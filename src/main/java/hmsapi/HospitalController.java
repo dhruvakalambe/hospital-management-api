@@ -13,19 +13,9 @@ public class HospitalController {
 
         try{
 
-            File file =
-                    new File(
-                            "/home/os-lab/IdeaProjects/CRT/hms.db");
-
-            System.out.println(
-                    file.getAbsolutePath());
-
-            System.out.println(
-                    file.exists());
-
             return DriverManager.getConnection(
 
-                    "jdbc:sqlite:/home/os-lab/IdeaProjects/CRT/hms.db");
+                    "jdbc:sqlite:hms.db");
         }
 
         catch(Exception e){
