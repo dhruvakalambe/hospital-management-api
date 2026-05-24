@@ -1,7 +1,5 @@
 package hmsapi;
 
-import java.io.File;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
@@ -9,82 +7,78 @@ import java.sql.*;
 @RestController
 public class HospitalController {
 
-Connection connect(){
+    Connection connect() {
 
-    try{
+        try {
 
-        return DriverManager.getConnection(
-                "jdbc:sqlite:hms.db");
+            return DriverManager.getConnection(
+                    "jdbc:sqlite:hms.db");
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
     }
-
-    catch(Exception e){
-
-        e.printStackTrace();
-    }
-
-    return null;
-}
 
     @GetMapping("/addPatient")
 
     public String addPatient(
 
             @RequestParam String id,
-
             @RequestParam String name,
-
             @RequestParam int age,
+            @RequestParam String disease) {
 
-            @RequestParam String disease){
-
-        try{
+        try {
 
             Connection con =
                     connect();
 
             Statement st =
                     con.createStatement();
-            
+
             st.executeUpdate(
-            
-            "CREATE TABLE IF NOT EXISTS patients("
-            
-            + "id TEXT PRIMARY KEY,"
-            + "name TEXT,"
-            + "age INTEGER,"
-            + "disease TEXT)");
-            
+
+                    "CREATE TABLE IF NOT EXISTS patients("
+
+                            + "id TEXT PRIMARY KEY,"
+                            + "name TEXT,"
+                            + "age INTEGER,"
+                            + "disease TEXT)");
+
             PreparedStatement ps =
                     con.prepareStatement(
-            
-            "INSERT INTO patients(id,name,age,disease)"
-            + " VALUES(?,?,?,?)");
 
-            ps.setString(1,id);
-            ps.setString(2,name);
-            ps.setInt(3,age);
-            ps.setString(4,disease);
+                            "INSERT INTO patients(id,name,age,disease) "
+                                    + "VALUES(?,?,?,?)");
+
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setInt(3, age);
+            ps.setString(4, disease);
 
             ps.executeUpdate();
 
             return "Patient Added Successfully";
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return e.getMessage();
         }
-            
-catch(Exception e){
+    }
 
-    e.printStackTrace();
-
-    return e.getMessage();
-}
-        
     @GetMapping("/patients")
 
-    public String patients(){
+    public String patients() {
 
         StringBuilder data =
                 new StringBuilder();
 
-        try{
+        try {
 
             Connection con =
                     connect();
@@ -96,27 +90,31 @@ catch(Exception e){
                     st.executeQuery(
                             "SELECT * FROM patients");
 
-            while(rs.next()){
+            while (rs.next()) {
 
                 data.append(
-
                                 rs.getString("id"))
+                        .append(" ")
+
+                        .append(
+                                rs.getString("name"))
 
                         .append(" ")
 
                         .append(
+                                rs.getInt("age"))
 
-                                rs.getString("name"))
+                        .append(" ")
+
+                        .append(
+                                rs.getString("disease"))
 
                         .append("\n");
             }
-        }
-            
-        catch(Exception e){
-        
+
+        } catch (Exception e) {
+
             e.printStackTrace();
-        
-            return e.getMessage();
         }
 
         return data.toString();
