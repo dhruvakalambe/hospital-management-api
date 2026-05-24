@@ -43,10 +43,23 @@ public class HospitalController {
             Connection con =
                     connect();
 
+            Statement st =
+                    con.createStatement();
+            
+            st.executeUpdate(
+            
+            "CREATE TABLE IF NOT EXISTS patients("
+            
+            + "id TEXT PRIMARY KEY,"
+            + "name TEXT,"
+            + "age INTEGER,"
+            + "disease TEXT)");
+            
             PreparedStatement ps =
                     con.prepareStatement(
-
-                            "INSERT INTO patients VALUES(?,?,?,?)");
+            
+            "INSERT INTO patients(id,name,age,disease)"
+            + " VALUES(?,?,?,?)");
 
             ps.setString(1,id);
             ps.setString(2,name);
