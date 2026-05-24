@@ -9,24 +9,21 @@ import java.sql.*;
 @RestController
 public class HospitalController {
 
-    Connection connect(){
+Connection connect(){
 
-        try{
+    try{
 
-            return DriverManager.getConnection(
-
-                    "jdbc:sqlite:hms.db");
-        }
-
-        catch(Exception e){
-        
-            e.printStackTrace();
-        
-            return e.getMessage();
-        }
-
-        return null;
+        return DriverManager.getConnection(
+                "jdbc:sqlite:hms.db");
     }
+
+    catch(Exception e){
+
+        e.printStackTrace();
+    }
+
+    return null;
+}
 
     @GetMapping("/addPatient")
 
