@@ -69,15 +69,14 @@ Connection connect(){
 
             return "Patient Added Successfully";
         }
-        catch(Exception e){
-        
-            e.printStackTrace();
-        
-            return e.getMessage();
-        }
-        return "Error";
-    }
+            
+catch(Exception e){
 
+    e.printStackTrace();
+
+    return e.getMessage();
+}
+        
     @GetMapping("/patients")
 
     public String patients(){
