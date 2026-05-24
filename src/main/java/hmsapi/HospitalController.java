@@ -19,8 +19,10 @@ public class HospitalController {
         }
 
         catch(Exception e){
-
+        
             e.printStackTrace();
+        
+            return e.getMessage();
         }
 
         return null;
@@ -70,12 +72,12 @@ public class HospitalController {
 
             return "Patient Added Successfully";
         }
-
         catch(Exception e){
-
+        
             e.printStackTrace();
+        
+            return e.getMessage();
         }
-
         return "Error";
     }
 
@@ -113,10 +115,12 @@ public class HospitalController {
                         .append("\n");
             }
         }
-
+            
         catch(Exception e){
-
+        
             e.printStackTrace();
+        
+            return e.getMessage();
         }
 
         return data.toString();
