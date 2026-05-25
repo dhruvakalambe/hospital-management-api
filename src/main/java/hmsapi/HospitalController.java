@@ -40,6 +40,9 @@ public class HospitalController {
                     con.createStatement();
 
             st.executeUpdate(
+                    "DROP TABLE IF EXISTS patients");
+
+            st.executeUpdate(
 
                     "CREATE TABLE IF NOT EXISTS patients("
 
