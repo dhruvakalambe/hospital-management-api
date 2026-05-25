@@ -22,6 +22,12 @@ public class HospitalController {
         return null;
     }
 
+    @GetMapping("/")
+    public String home(){
+
+        return "HMS Backend Running";
+    }
+
     @GetMapping("/addPatient")
 
     public String addPatient(
