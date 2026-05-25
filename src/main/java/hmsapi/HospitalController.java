@@ -31,31 +31,17 @@ public class HospitalController {
             @RequestParam int age,
             @RequestParam String disease) {
 
-        try {
+        try (
 
-            Connection con =
-                    connect();
+                Connection con = connect();
 
-            Statement st =
-                    con.createStatement();
+                PreparedStatement ps =
+                        con.prepareStatement(
 
-            st.executeUpdate(
-                    "DROP TABLE IF EXISTS patients");
+                                "INSERT INTO patients(id,name,age,disease) "
+                                        + "VALUES(?,?,?,?)")
 
-            st.executeUpdate(
-
-                    "CREATE TABLE IF NOT EXISTS patients("
-
-                            + "id TEXT PRIMARY KEY,"
-                            + "name TEXT,"
-                            + "age INTEGER,"
-                            + "disease TEXT)");
-
-            PreparedStatement ps =
-                    con.prepareStatement(
-
-                            "INSERT INTO patients(id,name,age,disease) "
-                                    + "VALUES(?,?,?,?)");
+        ) {
 
             ps.setString(1, id);
             ps.setString(2, name);
