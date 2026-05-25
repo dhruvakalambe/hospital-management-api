@@ -41,7 +41,7 @@ public class HospitalController {
 
             st.executeUpdate(
 
-                    "CREATE TABLE patients("
+                    "CREATE TABLE IF NOT EXISTS patients("
 
                             + "id TEXT PRIMARY KEY,"
                             + "name TEXT,"
